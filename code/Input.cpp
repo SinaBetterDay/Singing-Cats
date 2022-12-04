@@ -1,66 +1,46 @@
-#pragma once
-#include <SFML/Graphics.hpp>
-#include "TextureHolder.h"
+#include "Engine.h"
 
-using namespace sf;
-
-class Engine
+void Engine::input()
 {
-private:
-	// The texture holder
-	TextureHolder th;
+	Event event;
+	while (m_Window.pollEvent(event))
+	{
+		if (event.type == Event::KeyPressed)
+		{
+			// Handle the player quitting
+			if (event.key.code == Keyboard::Escape)
+			{
+				m_Window.close();
+			}
 
-	const int TILE_SIZE = 50;
-	const int VERTS_IN_QUAD = 4;
+			// Handle the player starting the game
+			if (event.key.code == Keyboard::Return)
+			{
+				m_Playing = true;
+			}
 
-	// The force pushing the characters down
-	const int GRAVITY = 300;
+			// Switch between Thomas and Bob
+			if (event.key.code == Keyboard::Q)
+			{
+				m_Character1 = !m_Character1;
+			}
 
-	// A regular RenderWindow
-	RenderWindow m_Window;
+			// Switch between full and split-screen
+			if (event.key.code == Keyboard::E)
+			{
+				m_SplitScreen = !m_SplitScreen;
+			}
+		}
+	}
 
-	// The main Views
-	View m_MainView;
-	View m_LeftView;
-	View m_RightView;
-
-	// Three views for the background
-	View m_BGMainView;
-	View m_BGLeftView;
-	View m_BGRightView;
-
-	View m_HudView;
-
-	// Declare a sprite and a Texture for the background
-	Sprite m_BackgroundSprite;
-	Texture m_BackgroundTexture;
-
-	// Is the game currently playing?
-	bool m_Playing = false;
-
-	// Is character 1 or 2 the current focus?
-	bool m_Character1 = true;
-
-	// Start in full screen mode
-	bool m_SplitScreen = false;
-
-	// How much time is left in the current level
-	float m_TimeRemaining;
-	Time m_GameTimeTotal;
-
-	// Is it time for a new/first level?
-	bool m_NewLevelRequired = true;
-	
-	// Private functions for internal use only
-	void input();
-	void update(float dtAsSeconds);
-	void draw();
-	
-public:
-	// The Engine constructor
-	Engine();
-
-	// Run will call all the private functions
-	void run();
-
-};
+	// Handle input specific to Thomas
+	if (m_Thomas.handleInput())
+	{
+		// Play a jump sound
+	}
+	// Handle input specific to Bob
+	if (m_Bob.handleInput())
+	{
+		// Play a jump sound
+	}
+}
