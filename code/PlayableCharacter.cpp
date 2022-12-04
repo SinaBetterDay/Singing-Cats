@@ -68,3 +68,60 @@ void PlayableCharacter::update(float elapsedTime)
   // Move the sprite into position
   m_Sprite.setPosition(m_Position);
 }
+
+FloatRect PlayableCharacter::getPosition()
+{
+   return m_Sprite.getGlobalBounds();
+}
+
+Vector2f PlayableCharacter::getCenter()
+{
+   return Vector2f(
+   m_Position.x + m_Sprite.getGlobalBounds().width / 2,
+   m_Position.y + m_Sprite.getGlobalBounds().height / 2
+   );
+}
+FloatRect PlayableCharacter::getFeet()
+{
+  return m_Feet;
+}
+FloatRect PlayableCharacter::getHead()
+{
+  return m_Head;
+}
+FloatRect PlayableCharacter::getLeft()
+{
+  return m_Left;
+}
+FloatRect PlayableCharacter::getRight()
+{
+  return m_Right;
+}
+Sprite PlayableCharacter::getSprite()
+{
+  return m_Sprite;
+}
+
+void PlayableCharacter::stopFalling(float position)
+{
+  m_Position.y = position - getPosition().height;
+  m_Sprite.setPosition(m_Position);
+  m_IsFalling = false;
+}
+
+void PlayableCharacter::stopRight(float position)
+{
+  m_Position.x = position - m_Sprite.getGlobalBounds().width;
+  m_Sprite.setPosition(m_Position);
+}
+void PlayableCharacter::stopLeft(float position)
+{
+  m_Position.x = position + m_Sprite.getGlobalBounds().width;
+  m_Sprite.setPosition(m_Position);
+}
+void PlayableCharacter::stopJump()
+{
+  // Stop a jump early
+  m_IsJumping = false;
+  m_IsFalling = true;
+}
