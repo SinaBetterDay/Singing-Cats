@@ -1,6 +1,6 @@
-#include "Bob.h"
+#include "Jeff.h"
 #include "TextureHolder.h"
-Bob::Bob()
+Jeff::Jeff()
 {
     // Associate a texture with the sprite
     m_Sprite = Sprite(TextureHolder::GetTexture(
@@ -8,7 +8,7 @@ Bob::Bob()
     m_JumpDuration = .25;
 }
 
-bool Bob::handleInput()
+bool Jeff::handleInput()
 {
     m_JustJumped = false;
     if (Keyboard::isKeyPressed(Keyboard::Up))
