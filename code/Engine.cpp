@@ -9,7 +9,7 @@ Engine::Engine()
 	resolution.y = VideoMode::getDesktopMode().height;
 
 	m_Window.create(VideoMode(resolution.x, resolution.y),
-		"Thomas was late",
+		"Singing Cats",
 		Style::Fullscreen);
 
 	// Initialize the full screen view
@@ -38,7 +38,7 @@ Engine::Engine()
 	}
 
 	m_BackgroundTexture = TextureHolder::GetTexture(
-		"graphics/background.png");
+		"catbackstage/background.png");
 
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
@@ -52,14 +52,15 @@ void Engine::run()
 
 	while (m_Window.isOpen())
 	{
-		Time dt = clock.restart();
-		// Update the total game time
-		m_GameTimeTotal += dt;
-		// Make a decimal fraction from the delta time
-		float dtAsSeconds = dt.asSeconds();
+		while (m_window.pollEvent(event))
+		{
+			if (event.key.code == Keyboard::Escape)
+			{
+				window.close();
+			}
 
-		input();
-		update(dtAsSeconds);
-		draw();
-	}
+			if (event.type == Event::Closed) 
+			{ 
+				window.close(); 
+			}
 }
