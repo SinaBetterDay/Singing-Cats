@@ -1,10 +1,10 @@
 #pragma once
 #include "PlayableCharacter.h"
-class Bob : public PlayableCharacter
+class Jeff : public PlayableCharacter
 {
 public:
   // A constructor specific to Bob
-  Bob::Bob();
+  Jeff::Jeff();
   // The overriden input handler for Bob
   bool virtual handleInput();
 };
