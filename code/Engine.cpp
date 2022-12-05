@@ -14,8 +14,7 @@ Engine::Engine()
 
 	// Initialize the full screen view
 	m_MainView.setSize(resolution);
-	m_HudView.reset(
-		FloatRect(0, 0, resolution.x, resolution.y));
+	m_HudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
 
 	// Inititialize the split-screen Views
 	m_LeftView.setViewport(
@@ -37,8 +36,7 @@ Engine::Engine()
 		m_Window.close();
 	}
 
-	m_BackgroundTexture = TextureHolder::GetTexture(
-		"catbackstage/background.png");
+	m_BackgroundTexture = TextureHolder::GetTexture("graphics/catbackstage.jpg");
 
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
