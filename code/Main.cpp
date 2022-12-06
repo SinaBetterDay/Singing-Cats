@@ -51,10 +51,10 @@ void guitarCat()
     }
 
     if (clock.getElapsedTime().asSeconds() > 1.0f){
-      if (rectSourceSprite.down == 640)
-        rectSourceSprite.down = 0;
+      if (rectSourceSprite.height == 640)
+        rectSourceSprite.height = 0;
       else
-        rectSourceSprite.down += 320;
+        rectSourceSprite.height += 320;
 
       sprite.setTextureRect(rectSourceSprite);
       clock.restart();
