@@ -16,7 +16,7 @@ Engine::Engine()
 	m_MainView.setSize(resolution);
 	m_HudView.reset(FloatRect(0, 0, resolution.x, resolution.y));
 
-	// Inititialize the split-screen Views
+	/*// Inititialize the split-screen Views
 	m_LeftView.setViewport(
 		FloatRect(0.001f, 0.001f, 0.498f, 0.998f));
 
@@ -28,7 +28,7 @@ Engine::Engine()
 
 	m_BGRightView.setViewport(
 		FloatRect(0.5f, 0.001f, 0.499f, 0.998f));
-
+		*/
 	// Can this graphics card use shaders?
 	if (!sf::Shader::isAvailable())
 	{
@@ -36,7 +36,7 @@ Engine::Engine()
 		m_Window.close();
 	}
 
-	m_BackgroundTexture = TextureHolder::GetTexture("graphics/catbackstage.jpg");
+	m_BackgroundTexture.loadFromFile("Insert Directory");
 
 	// Associate the sprite with the texture
 	m_BackgroundSprite.setTexture(m_BackgroundTexture);
@@ -47,18 +47,20 @@ void Engine::run()
 {
 	// Timing 	
 	Clock clock;
-
+	Event event;
 	while (m_Window.isOpen())
 	{
-		while (m_window.pollEvent(event))
+		while (m_Window.pollEvent(event))
 		{
 			if (event.key.code == Keyboard::Escape)
 			{
-				window.close();
+				m_Window.close();
 			}
 
 			if (event.type == Event::Closed) 
 			{ 
-				window.close(); 
+				m_Window.close(); 
 			}
+		}
+	}
 }
