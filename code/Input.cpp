@@ -34,7 +34,7 @@ void Engine::input()
 	}
 
 	// Handle input specific to Thomas
-	if (m_Thomas.handleInput())
+	/*if (m_Thomas.handleInput())
 	{
 		// Play a jump sound
 	}
@@ -42,5 +42,5 @@ void Engine::input()
 	if (m_Bob.handleInput())
 	{
 		// Play a jump sound
-	}
+	}*/
 }
