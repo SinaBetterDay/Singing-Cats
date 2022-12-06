@@ -26,7 +26,7 @@ public:
     
 };
 
-void animationTimer() {
+void animationDelay() {
 	Time delay;
 	delay = microseconds(10000);
 
@@ -64,11 +64,11 @@ void guitarCat()
 	  
 	SoundBuffer buffer;
 	Sound sound;
-	buffer.loadFromFile("sound/Intro Melody.wav")
+	buffer.loadFromFile("sound/Guitar intro.wav")
 	sound.setBuffer(buffer);
 	sound.setVolume(50.f);
 	sound.setLoop(true);
-	 
+	animationDelay();
 	sound.play();
 
   }
