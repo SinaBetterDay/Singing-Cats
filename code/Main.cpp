@@ -27,54 +27,51 @@ public:
 };
 
 void animationTimer() {
-	
+	Time delay;
+	delay = microseconds(10000);
 
 }
 void guitarCat() 
 {
-	sf::IntRect rectSourceSprite(300, 0, 300, 400);
-	sf::Sprite sprite(texture, rectSourceSprite);
-	sf::Clock clock;
-	while (renderWindow.isOpen()) {
-		while (renderWindow.pollEvent(event)) {
-			if (event.type == sf::Event::EventType::Closed)
-				renderWindow.close();
-		}
+	Event event;
+	Texture texture;
+ 	texture.loadFromFile("graphics/New Piskel.png");
 
-		if (clock.getElapsedTime().asSeconds() > 1.0f) {
-			if (rectSourceSprite.left == 600)
-				rectSourceSprite.left = 0;
-			else
-				rectSourceSprite.left += 300;
+  	IntRect rectSourceSprite(0, 0, 320, 320);
+  	Sprite sprite(texture,rectSourceSprite);
+  sf::Clock clock;
 
-			sprite.setTextureRect(rectSourceSprite);
-			clock.restart();
-		}
-    //cat sprite 
-	Texture backgroundTexture;
-	backgroundTexture.loadFromFile("graphics/catbackstage.jpg");
-	Sprite backgroundSprite;
-	backgroundSprite.setTexture(backgroundTexture);
-    //edit
-	backgroundSprite.setPosition(0, 0);
-	backgroundSprite.setScale(1, 1);
-	backgroundSprite.setOrigin(0, 0);
-	window.draw(backgroundSprite);
+  while (renderWindow.isOpen()){
+    while (renderWindow.pollEvent(event)){
+      if (event.type == sf::Event::EventType::Closed)
+        renderWindow.close();
+    }
 
-    // cat sound 
+    if (clock.getElapsedTime().asSeconds() > 1.0f){
+      if (rectSourceSprite.down == 640)
+        rectSourceSprite.down = 0;
+      else
+        rectSourceSprite.down += 320;
+
+      sprite.setTextureRect(rectSourceSprite);
+      clock.restart();
+    }
+
+    
+    renderWindow.clear();
+    renderWindow.draw(sprite);
+    renderWindow.display();
+	  
 	SoundBuffer buffer;
 	Sound sound;
-    buffer.loadFromFile("sound/Intro Melody.wav")
+	buffer.loadFromFile("sound/Intro Melody.wav")
 	sound.setBuffer(buffer);
-
 	sound.setVolume(50.f);
 	sound.setLoop(true);
+	 
+	sound.play();
 
-	// when mouseclick 
-    sound.play();
-
-
-
+  }
 
 
 }
