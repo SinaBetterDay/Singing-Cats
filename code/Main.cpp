@@ -44,10 +44,10 @@ void guitarCat()
   	//for animation sequence
 	Clock clock;
 
-  while (renderWindow.isOpen()){
-    while (renderWindow.pollEvent(event)){
+  while (window.isOpen()){
+    while (window.pollEvent(event)){
       if (event.type == sf::Event::EventType::Closed)
-        renderWindow.close();
+        window.close();
     }
 
     if (clock.getElapsedTime().asSeconds() > 1.0f){
@@ -61,9 +61,8 @@ void guitarCat()
     }
 
     
-    renderWindow.clear();
-    renderWindow.draw(sprite);
-    renderWindow.display();
+    window.clear();
+    window.draw(sprite);
 	  
 	SoundBuffer buffer;
 	Sound sound;
