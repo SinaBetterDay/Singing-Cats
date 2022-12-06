@@ -62,5 +62,7 @@ void Engine::run()
 				m_Window.close(); 
 			}
 		}
+		input();
+		draw();
 	}
 }
