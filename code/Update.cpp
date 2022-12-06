@@ -7,7 +7,7 @@ using namespace sf;
 void Engine::update(float dtAsSeconds)
 {
 
-	if (m_NewLevelRequired)
+	/*if (m_NewLevelRequired)
 	{
 		loadLevel();
 	}
@@ -54,7 +54,7 @@ void Engine::update(float dtAsSeconds)
 		{
 			m_NewLevelRequired = true;
 		}
-
+		
 	}// End if playing
 		
 	// Set the appropriate view around the appropriate character
@@ -75,5 +75,5 @@ void Engine::update(float dtAsSeconds)
 			m_MainView.setCenter(m_Bob.getCenter());
 		}
 	}
-
+	*/
 }
