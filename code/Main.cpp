@@ -36,11 +36,13 @@ void guitarCat()
 	Event event;
 	Texture texture;
  	texture.loadFromFile("graphics/New Piskel.png");
-	texture.setPosition(320, 320);
+	
 
   	IntRect rectSourceSprite(0, 0, 320, 320);
   	Sprite sprite(texture,rectSourceSprite);
-  sf::Clock clock;
+	sprite.setPosition(320, 320);
+  	//for animation sequence
+	Clock clock;
 
   while (renderWindow.isOpen()){
     while (renderWindow.pollEvent(event)){
