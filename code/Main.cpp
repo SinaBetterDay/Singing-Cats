@@ -2,6 +2,7 @@
 #include <vector>
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include "Engine.h"
 using namespace std;
 using namespace sf;
 
@@ -12,8 +13,8 @@ public:
 protected:
 
     Vector2f position;
-    
-    
+
+
 };
 
 
@@ -23,108 +24,122 @@ class cat1 : public Cat
 public:
     cat1(Vector2f pos, int);
 
-    
+
 };
 
-void animationDelay() {
-	Time delay;
-	delay = microseconds(10000);
 
-}
-void guitarCat() 
+
+/*
+void guitarCat()
 {
-	Event event;
-	Texture texture;
- 	texture.loadFromFile("graphics/New Piskel.png");
-	
-
-  	IntRect rectSourceSprite(0, 0, 320, 320);
-  	Sprite sprite(texture,rectSourceSprite);
-	sprite.setPosition(320, 320);
-  	//for animation sequence
 	Clock clock;
 
-  while (window.isOpen()){
-    while (window.pollEvent(event)){
-      if (event.type == sf::Event::EventType::Closed)
-        window.close();
-    }
+	Texture faceTexture;
+	faceTexture.loadFromFile("drumCatnot.png");
 
-    if (clock.getElapsedTime().asSeconds() > 1.0f){
-      if (rectSourceSprite.height == 640)
-        rectSourceSprite.height = 0;
-      else
-        rectSourceSprite.height += 320;
+	VertexArray talkingFace;
+	talkingFace.setPrimitiveType(Quads);
+	talkingFace.resize(3);
 
-      sprite.setTextureRect(rectSourceSprite);
-      clock.restart();
-    }
+	const int FACE_SHEET_WIDTH = 960;
+	const float FRAME_TIME_S = 0.2f;
 
-    
-    window.clear();
-    window.draw(sprite);
-	  
-	SoundBuffer buffer;
-	Sound sound;
-	buffer.loadFromFile("sound/Guitar intro.wav")
-	sound.setBuffer(buffer);
-	sound.setVolume(50.f);
-	sound.setLoop(true);
-	animationDelay();
-	sound.play();
+	Vector2f facePosition = { resolution.x / 2, resolution.y / 2 };
 
-  }
+	talkingFace[0].position = facePosition + Vector2f(0, 0);
+	talkingFace[1].position = facePosition + Vector2f(FACE_SHEET_WIDTH, 0);
+	talkingFace[2].position = facePosition + Vector2f(FACE_SHEET_WIDTH, FACE_SHEET_WIDTH);
+	talkingFace[3].position = facePosition + Vector2f(0, FACE_SHEET_WIDTH);
+
+	Time face_animate_time;
+	int faceFrame = 0;
+
+	Time dt;
+
+	while (window.isOpen())
+	{
+		sf::Event event;
+		while (window.pollEvent(event))
+		{
+			if (event.type == sf::Event::Closed)
+				window.close();
+		}
+
+		dt = clock.restart();
+		face_animate_time += dt;
+
+		if (face_animate_time >= seconds(FRAME_TIME_S))
+		{
+			faceFrame++;
+			faceFrame %= 4;
+			face_animate_time = Time::Zero;
+		}
+
+		// Set the texture coordinates of each vertex
+		int frameOffset = FACE_SHEET_WIDTH * faceFrame;
+
+		talkingFace[0].texCoords = Vector2f(0, 0 + frameOffset);
+		talkingFace[1].texCoords = Vector2f(FACE_SHEET_WIDTH, 0 + frameOffset);
+		talkingFace[2].texCoords = Vector2f(FACE_SHEET_WIDTH, FACE_SHEET_WIDTH + frameOffset);
+		talkingFace[3].texCoords = Vector2f(0, FACE_SHEET_WIDTH + frameOffset);
+
+		SoundBuffer buffer;
+		Sound sound;
+		buffer.loadFromFile("sound/Guitar intro.wav");
+		sound.setBuffer(buffer);
+		sound.setVolume(50.f);
+		sound.setLoop(true);
+		animationDelay();
+		sound.play();
+
+		window.clear(Color::Magenta);
+		window.draw(talkingFace, &faceTexture);
+		window.display();
+	}
+/*
+    Event event;
+
+    Texture texture;
+    texture.loadFromFile("graphics/New Piskel.png");
 
 
-}
+    //crop sprite sheet 
+    IntRect rectSourceSprite(320, 320, 320, 320);
+    Sprite sprite(texture, rectSourceSprite);
+
+    //edit
+    sprite.setPosition(320, 320);
+
+    //for animation sequence
+    Clock clock;
+
+        if (clock.getElapsedTime().asSeconds() > 1.0f) {
+            if (rectSourceSprite.height == 640)
+                rectSourceSprite.height = 0;
+            else
+                rectSourceSprite.height += 320;
+
+            sprite.setTextureRect(rectSourceSprite);
+            clock.restart();
+        }
+
+
+		cout << "senarrelahdkjlfblakhdfa" << endl;
+        window.draw(sprite);
+
+       
+		
+
+   }
+   */
 
 int main()
 {
-    // Window Management
-    float windowScale = 1.0f;
-    int currentWindowWidth = VideoMode::getDesktopMode().width * windowScale;
-    int currentWindowHeight = VideoMode::getDesktopMode().height * windowScale;
-    VideoMode desktop(currentWindowWidth, currentWindowHeight);
-    float aspect_ratio = currentWindowHeight / static_cast<float>(currentWindowWidth);
-    RenderWindow window(desktop, "Singing Cats", Style::Fullscreen);
 
-    // Sprites
-    Texture backgroundTexture;
-    backgroundTexture.loadFromFile("graphics/catbackstage.jpg");
-    Sprite backgroundSprite;
-    backgroundSprite.setTexture(backgroundTexture);
-    backgroundSprite.setPosition(0, 0);
-    backgroundSprite.setScale(1, 1);
-    backgroundSprite.setOrigin(0, 0);
+	Engine lmao;
+	lmao.run();
+	lmao.guitarCat();
 
-    Event event;
-
-    while (window.isOpen())
-    {
-        while (window.pollEvent(event))
-        {
-            switch (event.type)
-            {
-            case Event::Closed:
-            {
-                window.close();
-                break;
-
-            }
-
-            case Event::KeyPressed:
-            {
-                if (Keyboard::isKeyPressed(Keyboard::Escape))
-                    window.close();
-                break;
-            }
-            }
-        }
-
-        window.draw(backgroundSprite);
-        window.display();
-        void guitarcat();
-    }
 
     return 0;
 }
